@@ -1,13 +1,17 @@
-from flask  import Flask, render_template,request, redirect, url_for
+from flask import Flask, render_template,request, redirect, url_for
 from flask import flash
 from flask_wtf.csrf import CSRFProtect
+from flask_migrate import Migrate, migrate
 from config import DevelopmentConfig
 from models import db, Alumnos, Maestros
-import forms  
+import forms
+
+from models import db, Alumnos
 
 app = Flask(__name__)
 app.config.from_object(DevelopmentConfig)
 db.init_app(app)
+migrate = Migrate(app, db) #Inicializar migracion
 csrf = CSRFProtect(app)
 
 @app.route("/",methods=["GET","POST"])
